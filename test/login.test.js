@@ -1,8 +1,9 @@
 const request = require("supertest");
 const { expect } = require("chai");
+require('dotenv').config();
 
-const baseUrl = "http://localhost:3000";
-const user = { username: 'julio.lima', senha: '123456' };
+const baseUrl = process.env.BASE_URL;
+const user = { username: process.env.USUARIO, senha: process.env.SENHA };
 
 
 describe('Login API', () => {
@@ -10,7 +11,7 @@ describe('Login API', () => {
         it('Login com credenciais corretas', async () => {
 
 
-           const res = await request(baseUrl)
+            const res = await request(baseUrl)
                 .post(`/login`)
                 .send(user)
                 .set('Content-Type', 'application/json')
@@ -18,7 +19,7 @@ describe('Login API', () => {
             expect(res.body).to.have.property('token');
             expect(res.body.token).to.be.a('string');
         })
-        
+
     })
-    
+
 })

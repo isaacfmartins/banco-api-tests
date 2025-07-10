@@ -1,14 +1,15 @@
 import request from "supertest";
 import { expect } from "chai";
+import 'dotenv/config';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = process.env.BASE_URL;
 let authToken = '';
-const user = { username: 'julio.lima', senha: '123456' };
+const user = { username: process.env.USUARIO, senha: process.env.SENHA };
 const resultado = await request(baseUrl)
-                .post(`/login`)
-                .send(user)
+    .post(`/login`)
+    .send(user)
 
-authToken = resultado.body.token;               
+authToken = resultado.body.token;
 
 describe('Transferências API', () => {
     describe('POST /transferencia', () => {
@@ -17,7 +18,7 @@ describe('Transferências API', () => {
                 .post(`/transferencias`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${authToken}`)
-                .send({contaOrigem: 1, contaDestino: 2, valor: 10.01, token: ''})
+                .send({ contaOrigem: 1, contaDestino: 2, valor: 10.01, token: '' })
             expect(res.status).to.equal(201);
 
         })
@@ -27,10 +28,10 @@ describe('Transferências API', () => {
                 .post(`/transferencias`)
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${authToken}`)
-                .send({contaOrigem: 1, contaDestino: 2, valor: 9.99, token: ''})
+                .send({ contaOrigem: 1, contaDestino: 2, valor: 9.99, token: '' })
             expect(res.status).to.equal(422);
 
         })
-        
+
     })
 });
