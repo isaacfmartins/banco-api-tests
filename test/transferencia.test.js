@@ -1,15 +1,11 @@
 import request from "supertest";
 import { expect } from "chai";
 import 'dotenv/config';
+import { obterToken } from "../helpers/autenticador.js";
 
 const baseUrl = process.env.BASE_URL;
-let authToken = '';
 const user = { username: process.env.USUARIO, senha: process.env.SENHA };
-const resultado = await request(baseUrl)
-    .post(`/login`)
-    .send(user)
-
-authToken = resultado.body.token;
+let authToken = await obterToken(user.username, user.senha);
 
 describe('Transferências API', () => {
     describe('POST /transferencia', () => {
