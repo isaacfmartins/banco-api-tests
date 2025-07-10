@@ -7,7 +7,7 @@ const user = { username: 'julio.lima', senha: '123456' };
 
 describe('Login API', () => {
     describe('POST /login', () => {
-        it('Login with valid credentials', async () => {
+        it('Login com credenciais corretas', async () => {
 
 
            const res = await request(baseUrl)
