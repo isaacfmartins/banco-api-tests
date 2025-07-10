@@ -3,12 +3,22 @@ import { expect } from "chai";
 import 'dotenv/config';
 import { obterToken } from "../helpers/autenticador.js";
 
-const baseUrl = process.env.BASE_URL;
-const user = { username: process.env.USUARIO, senha: process.env.SENHA };
-let authToken = await obterToken(user.username, user.senha);
+
+
+
 
 describe('Transferências API', () => {
     describe('POST /transferencia', () => {
+
+        let authToken;
+        const baseUrl = process.env.BASE_URL;
+        beforeEach(async () => {
+
+            const user = { username: process.env.USUARIO, senha: process.env.SENHA };
+            authToken = await obterToken(user.username, user.senha);
+
+        })
+
         it('Deve retornar 201 quando ao valor de transferência for igual ou maior que 10.00', async () => {
             const res = await request(baseUrl)
                 .post(`/transferencias`)
