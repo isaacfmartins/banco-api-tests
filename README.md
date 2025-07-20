@@ -68,7 +68,7 @@ npm test
 5. **Gerar relatório com Mochawesome:**
 
 ```bash
-npx mocha test/*.test.js --reporter mochawesome
+npx mocha test/*.test.js --timeout 200000  --reporter mochawesome
 ```
 
 > O relatório será gerado no diretório `mochawesome-report/`.
